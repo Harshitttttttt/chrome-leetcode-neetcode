@@ -1,0 +1,19 @@
+{
+	"manifest_version": 3,
+	"name": "LeetCode Neetcode Search",
+	"version": "1.0.0",
+	"description": "Adds a button next to LeetCode problem titles to search for the problem on Neetcode",
+	"icons": {
+		"16": "icons/icon16.png",
+		"48": "icons/icon48.png",
+		"128": "icons/icon128.png"
+	},
+	"permissions": [],
+	"content_scripts": [
+		{
+			"matches": ["https://leetcode.com/problems/*"],
+			"js": ["content.js"],
+			"css": ["styles.css"]
+		}
+	]
+}

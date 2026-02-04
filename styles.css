@@ -1,0 +1,55 @@
+/* Neetcode Search Button Styles */
+
+.neetcode-btn-wrapper {
+	display: inline-flex;
+	align-items: center;
+	vertical-align: middle;
+}
+
+.neetcode-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 12px;
+	font-size: 13px;
+	font-weight: 500;
+	font-family:
+		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+	color: #ffffff;
+	background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
+}
+
+.neetcode-btn:hover {
+	background: linear-gradient(135deg, #ff8c42 0%, #ffa559 100%);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(255, 107, 53, 0.4);
+}
+
+.neetcode-btn:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
+}
+
+.neetcode-btn svg {
+	flex-shrink: 0;
+}
+
+.neetcode-btn span {
+	white-space: nowrap;
+}
+
+/* Dark mode support (LeetCode uses dark mode by default) */
+@media (prefers-color-scheme: dark) {
+	.neetcode-btn {
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	.neetcode-btn:hover {
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+	}
+}
