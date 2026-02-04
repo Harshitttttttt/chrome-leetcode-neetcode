@@ -1,12 +1,13 @@
-/* Neetcode Search Button Styles */
+/* LeetCode Search Buttons Styles */
 
-.neetcode-btn-wrapper {
+.search-btn-wrapper {
 	display: inline-flex;
 	align-items: center;
+	gap: 8px;
 	vertical-align: middle;
 }
 
-.neetcode-btn {
+.search-btn {
 	display: inline-flex;
 	align-items: center;
 	gap: 6px;
@@ -16,11 +17,15 @@
 	font-family:
 		-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 	color: #ffffff;
-	background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
 	border: none;
 	border-radius: 6px;
 	cursor: pointer;
 	transition: all 0.2s ease;
+}
+
+/* Neetcode Button - Orange */
+.neetcode-btn {
+	background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
 	box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
 }
 
@@ -35,11 +40,28 @@
 	box-shadow: 0 2px 4px rgba(255, 107, 53, 0.3);
 }
 
-.neetcode-btn svg {
+/* Walkccc Button - Blue */
+.walkccc-btn {
+	background: linear-gradient(135deg, #4a90d9 0%, #6ba3e0 100%);
+	box-shadow: 0 2px 4px rgba(74, 144, 217, 0.3);
+}
+
+.walkccc-btn:hover {
+	background: linear-gradient(135deg, #6ba3e0 0%, #8bb8e8 100%);
+	transform: translateY(-1px);
+	box-shadow: 0 4px 8px rgba(74, 144, 217, 0.4);
+}
+
+.walkccc-btn:active {
+	transform: translateY(0);
+	box-shadow: 0 2px 4px rgba(74, 144, 217, 0.3);
+}
+
+.search-btn svg {
 	flex-shrink: 0;
 }
 
-.neetcode-btn span {
+.search-btn span {
 	white-space: nowrap;
 }
 
@@ -50,6 +72,14 @@
 	}
 
 	.neetcode-btn:hover {
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+	}
+
+	.walkccc-btn {
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+	}
+
+	.walkccc-btn:hover {
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 	}
 }

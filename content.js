@@ -1,10 +1,12 @@
-// LeetCode Neetcode Search Extension
-// Adds a button next to LeetCode problem titles to search on Neetcode
+// LeetCode Neetcode & Walkccc Search Extension
+// Adds buttons next to LeetCode problem titles to search on Neetcode and Walkccc
 
 (function () {
 	"use strict";
 
-	const BUTTON_ID = "neetcode-search-btn";
+	const NEETCODE_BUTTON_ID = "neetcode-search-btn";
+	const WALKCCC_BUTTON_ID = "walkccc-search-btn";
+	const WRAPPER_ID = "leetcode-search-btns-wrapper";
 	let observer = null;
 
 	/**
@@ -87,20 +89,20 @@
 	}
 
 	/**
-	 * Creates the Neetcode search button
+	 * Creates a search button with the given configuration
 	 */
-	function createNeetcodeButton() {
+	function createSearchButton(id, className, label, searchSuffix, title) {
 		const button = document.createElement("button");
-		button.id = BUTTON_ID;
-		button.className = "neetcode-btn";
+		button.id = id;
+		button.className = className;
 		button.innerHTML = `
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"></circle>
         <path d="M21 21l-4.35-4.35"></path>
       </svg>
-      <span>Neetcode</span>
+      <span>${label}</span>
     `;
-		button.title = "Search on Neetcode";
+		button.title = title;
 
 		button.addEventListener("click", (e) => {
 			e.preventDefault();
@@ -108,7 +110,9 @@
 
 			const problemTitle = getProblemTitle();
 			if (problemTitle) {
-				const searchQuery = encodeURIComponent(`${problemTitle} Neetcode`);
+				const searchQuery = encodeURIComponent(
+					`${problemTitle} ${searchSuffix}`,
+				);
 				const searchUrl = `https://www.google.com/search?q=${searchQuery}`;
 				window.open(searchUrl, "_blank");
 			} else {
@@ -120,11 +124,37 @@
 	}
 
 	/**
-	 * Inserts the Neetcode button next to the problem title
+	 * Creates the Neetcode search button
 	 */
-	function insertButton() {
-		// Check if button already exists
-		if (document.getElementById(BUTTON_ID)) {
+	function createNeetcodeButton() {
+		return createSearchButton(
+			NEETCODE_BUTTON_ID,
+			"search-btn neetcode-btn",
+			"Neetcode",
+			"Neetcode",
+			"Search on Neetcode",
+		);
+	}
+
+	/**
+	 * Creates the Walkccc search button
+	 */
+	function createWalkcccButton() {
+		return createSearchButton(
+			WALKCCC_BUTTON_ID,
+			"search-btn walkccc-btn",
+			"Walkccc",
+			"Walkccc",
+			"Search on Walkccc",
+		);
+	}
+
+	/**
+	 * Inserts the search buttons next to the problem title
+	 */
+	function insertButtons() {
+		// Check if buttons already exist
+		if (document.getElementById(WRAPPER_ID)) {
 			return;
 		}
 
@@ -133,15 +163,18 @@
 			return;
 		}
 
-		const button = createNeetcodeButton();
+		const neetcodeButton = createNeetcodeButton();
+		const walkcccButton = createWalkcccButton();
 
-		// Insert the button after the title element
+		// Insert the buttons after the title element
 		const parent = titleContainer.parentElement;
 		if (parent) {
 			// Create a wrapper to ensure proper positioning
 			const wrapper = document.createElement("div");
-			wrapper.className = "neetcode-btn-wrapper";
-			wrapper.appendChild(button);
+			wrapper.id = WRAPPER_ID;
+			wrapper.className = "search-btn-wrapper";
+			wrapper.appendChild(neetcodeButton);
+			wrapper.appendChild(walkcccButton);
 
 			// Try to insert after the title element
 			if (titleContainer.nextSibling) {
@@ -157,13 +190,13 @@
 	 */
 	function init() {
 		// Try to insert immediately
-		insertButton();
+		insertButtons();
 
 		// Also observe for dynamic page changes (LeetCode is a SPA)
 		observer = new MutationObserver((mutations) => {
 			// Debounce the check
-			if (!document.getElementById(BUTTON_ID)) {
-				insertButton();
+			if (!document.getElementById(WRAPPER_ID)) {
+				insertButtons();
 			}
 		});
 
@@ -176,8 +209,8 @@
 		const retryIntervals = [500, 1000, 2000, 3000, 5000];
 		retryIntervals.forEach((delay) => {
 			setTimeout(() => {
-				if (!document.getElementById(BUTTON_ID)) {
-					insertButton();
+				if (!document.getElementById(WRAPPER_ID)) {
+					insertButtons();
 				}
 			}, delay);
 		});
